@@ -29,9 +29,9 @@ const thread = (id, projectId = "project") => ({
   hasPendingUserInput: false,
   backgroundLiveness: null,
 });
-async function fixture(run) {
+async function fixture(run, sourceId = "source") {
   const threads = [
-    thread("source"),
+    thread(sourceId),
     thread("worker"),
     thread("foreign", "other"),
   ];
@@ -91,7 +91,7 @@ async function fixture(run) {
         ...process.env,
         T3_URL: `http://127.0.0.1:${http.address().port}`,
         T3_ACCESS_TOKEN: "fixture-token",
-        T3_SOURCE_THREAD_ID: "source",
+        T3_SOURCE_THREAD_ID: sourceId,
       },
     }),
   );
@@ -248,3 +248,18 @@ test("bounds reads and rejects malformed inputs before HTTP dispatch", () =>
       call("set_thread_settled", { threadId: "worker", settled: "yes" }),
     );
   }));
+
+
+test("retry IDs cannot collide across caller and retry delimiters", async () => {
+  const ids = [];
+  for (const [sourceId, commandId] of [["source", "b:c"], ["source:b", "c"], ["source", "b%3Ac"]]) {
+    await fixture(async ({ call, threads }) => {
+      const args = { title: "Unique worker", commandId };
+      const created = await call("create_thread", args);
+      assert.deepEqual(await call("create_thread", args), created);
+      assert.equal(threads.filter(t => t.id === created.threadId).length, 1);
+      ids.push(created.threadId);
+    }, sourceId);
+  }
+  assert.equal(new Set(ids).size, 3);
+});

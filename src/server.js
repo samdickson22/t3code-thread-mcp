@@ -135,7 +135,7 @@ export function createServer({
   const commandId = (caller, input) =>
     input.commandId === undefined
       ? randomUUID()
-      : `mcp:${caller.id}:${input.commandId}`;
+      : `mcp:${encodeURIComponent(caller.id)}:${encodeURIComponent(input.commandId)}`;
   const handlers = {
     async create_thread(input, snapshot, caller) {
       const id = commandId(caller, input);
