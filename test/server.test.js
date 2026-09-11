@@ -36,6 +36,7 @@ async function fixture(run, sourceId = "source", beforeDetail = () => {}) {
     thread("foreign", "other"),
   ];
   let snapshotSequence = 10;
+  let threadSequence = 1;
   const requests = [];
   const messages = [];
   const receipts = new Map();
@@ -49,7 +50,9 @@ async function fixture(run, sourceId = "source", beforeDetail = () => {}) {
     if (req.url === "/api/orchestration/shell")
       return res.end(JSON.stringify({ snapshotSequence, threads }));
     if (req.url.startsWith("/api/orchestration/threads/")) {
+      const beforeThread = JSON.stringify(threads[1]);
       if (beforeDetail(threads)) snapshotSequence++;
+      if (JSON.stringify(threads[1]) !== beforeThread) threadSequence++;
       return res.end(
         JSON.stringify({
           snapshotSequence,
@@ -58,7 +61,7 @@ async function fixture(run, sourceId = "source", beforeDetail = () => {}) {
             messages,
             activities: threads[1].activities ?? [],
           },
-          page: { beforeCursor: null, hasMore: false, snapshotSequence: 10 },
+          page: { beforeCursor: null, hasMore: false, snapshotSequence, threadSequence },
         }),
       );
     }
@@ -296,6 +299,15 @@ test("read retries mismatched snapshot sequences and bounds unstable reads", asy
       );
     },
     "source",
-    () => true,
+    threads => { threads[1].title += " changed"; return true; },
   );
 });
+
+
+test("unrelated projection updates do not exhaust thread reads", () =>
+  fixture(async ({ call, requests }) => {
+    const read = await call("read_thread", { threadId: "worker" });
+    assert.equal(read.thread.id, "worker");
+    assert.equal(read.snapshotSequence, 12);
+    assert.equal(requests.filter(r => r.url.startsWith("/api/orchestration/threads/")).length, 2);
+  }, "source", () => true));

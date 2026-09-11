@@ -170,6 +170,7 @@ export function createServer({
       };
     },
     async read_thread(input, snapshot, caller) {
+      let previousThreadSequence;
       for (let attempt = 0; attempt < 3; attempt++) {
         const thread = target(snapshot, input.threadId, caller);
         const query = new URLSearchParams({ turnLimit: String(input.turnLimit ?? 10) });
@@ -177,7 +178,12 @@ export function createServer({
         const detail = await request(
           `/api/orchestration/threads/${encodeURIComponent(thread.id)}?${query}`,
         );
-        if (snapshot.snapshotSequence !== detail.snapshotSequence) {
+        const threadSequence = detail.page?.threadSequence;
+        // Two equal per-thread watermarks bracket the shell read even when other
+        // projects keep advancing the environment-wide projection sequence.
+        const stableThread = threadSequence !== undefined && threadSequence === previousThreadSequence;
+        if (snapshot.snapshotSequence !== detail.snapshotSequence && !stableThread) {
+          previousThreadSequence = threadSequence;
           if (attempt < 2) snapshot = await shell();
           continue;
         }
