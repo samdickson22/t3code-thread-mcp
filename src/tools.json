@@ -1,0 +1,280 @@
+[
+  {
+    "name": "create_thread",
+    "description": "Create an empty persistent peer thread in this project, at its workspace root. Inherits this thread's model and permission mode unless modelSelection is supplied. Returns its ID; use send_message_to_thread to start work. Does not copy history or create a worktree.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "commandId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "modelSelection": {
+          "type": "object",
+          "properties": {
+            "provider": {
+              "anyOf": [
+                {},
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "instanceId": {
+              "anyOf": [
+                {},
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "model": {},
+            "options": {
+              "anyOf": [
+                {},
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "model"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "list_threads",
+    "description": "List persistent peer threads in this project, including settled threads. Archived threads are excluded. Results sort by ID; pass nextBeforeThreadId to fetch the next page.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "beforeThreadId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "read_thread",
+    "description": "Read a peer thread's state and a page of conversation messages in this project. Tool output and attachments are omitted; message text is capped at 8000 characters. Use the returned page.beforeCursor for older turns.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "threadId": {
+          "type": "string"
+        },
+        "turnLimit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "beforeCursor": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "threadId"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "send_message_to_thread",
+    "description": "Send a visible follow-up to a peer thread in this project, starting or queuing work and reviving settled threads. Includes your thread ID so the recipient can reply. Optional modelSelection changes the model. T3 can reject changing the provider of an already-bound thread.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "commandId": {
+          "type": "string"
+        },
+        "threadId": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "replyToSource": {
+          "type": "boolean",
+          "description": "Include instructions to reply to your source thread. Defaults true. Set false when an external controller watches completion instead."
+        },
+        "modelSelection": {
+          "type": "object",
+          "properties": {
+            "provider": {
+              "anyOf": [
+                {},
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "instanceId": {
+              "anyOf": [
+                {},
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "model": {},
+            "options": {
+              "anyOf": [
+                {},
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "model"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "threadId",
+        "message"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "wait_threads",
+    "description": "Wait for any peer thread to finish or need attention. Pass each last returned cursor to avoid repeated notifications. Returns current state on timeout; commentary does not wake this tool. Maximum wait is 60 seconds.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "targets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "threadId": {
+                "type": "string"
+              },
+              "cursor": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "threadId"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "timeoutSeconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 60
+        }
+      },
+      "required": [
+        "targets"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "set_thread_settled",
+    "description": "Settle or reactivate a peer thread in this project. Settling is rejected while work is running or queued, or blocking approvals are pending. Use interrupt_thread to stop a turn first.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "commandId": {
+          "type": "string"
+        },
+        "threadId": {
+          "type": "string"
+        },
+        "settled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "threadId",
+        "settled"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "interrupt_thread",
+    "description": "Request interruption of a peer thread's current turn in this project. History remains available for a follow-up.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "commandId": {
+          "type": "string"
+        },
+        "threadId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "threadId"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": false
+    }
+  }
+]

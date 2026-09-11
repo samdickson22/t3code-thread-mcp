@@ -1,0 +1,28 @@
+{
+  "name": "t3code-thread-mcp",
+  "version": "0.1.0",
+  "description": "MCP tools for persistent T3 Code threads over its existing HTTP API",
+  "type": "module",
+  "bin": {
+    "t3code-thread-mcp": "src/cli.js"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "start": "node src/cli.js",
+    "test": "node --test",
+    "check": "node --check src/cli.js && node --check src/server.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "ajv": "^8.20.0",
+    "zod": "^4.3.6"
+  }
+}
