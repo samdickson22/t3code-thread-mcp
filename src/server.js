@@ -170,27 +170,37 @@ export function createServer({
       };
     },
     async read_thread(input, snapshot, caller) {
-      const thread = target(snapshot, input.threadId, caller);
-      const query = new URLSearchParams({
-        turnLimit: String(input.turnLimit ?? 10),
-      });
-      if (input.beforeCursor !== undefined)
-        query.set("beforeCursor", input.beforeCursor);
-      const detail = await request(
-        `/api/orchestration/threads/${encodeURIComponent(thread.id)}?${query}`,
-      );
-      return {
-        thread: await summarize(thread),
-        snapshotSequence: detail.snapshotSequence,
-        ...(detail.page === undefined ? {} : { page: detail.page }),
-        messages: detail.thread.messages.map((m) => ({
-          id: m.id,
-          role: m.role,
-          text: m.text.slice(0, 8000),
-          truncated: m.text.length > 8000,
-          createdAt: m.createdAt,
-        })),
-      };
+      for (let attempt = 0; attempt < 3; attempt++) {
+        const thread = target(snapshot, input.threadId, caller);
+        const query = new URLSearchParams({ turnLimit: String(input.turnLimit ?? 10) });
+        if (input.beforeCursor !== undefined) query.set("beforeCursor", input.beforeCursor);
+        const detail = await request(
+          `/api/orchestration/threads/${encodeURIComponent(thread.id)}?${query}`,
+        );
+        if (snapshot.snapshotSequence !== detail.snapshotSequence) {
+          if (attempt < 2) snapshot = await shell();
+          continue;
+        }
+        return {
+          thread: summary(
+            thread,
+            detail.thread.activities
+              .filter((a) => a.kind === "approval.requested" || a.kind === "user-input.requested")
+              .map((a) => a.id)
+              .sort(),
+          ),
+          snapshotSequence: detail.snapshotSequence,
+          ...(detail.page === undefined ? {} : { page: detail.page }),
+          messages: detail.thread.messages.map((m) => ({
+            id: m.id,
+            role: m.role,
+            text: m.text.slice(0, 8000),
+            truncated: m.text.length > 8000,
+            createdAt: m.createdAt,
+          })),
+        };
+      }
+      throw new Error("Thread operation failed.");
     },
     async send_message_to_thread(input, snapshot, caller) {
       const t = target(snapshot, input.threadId, caller);

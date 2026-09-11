@@ -29,12 +29,13 @@ const thread = (id, projectId = "project") => ({
   hasPendingUserInput: false,
   backgroundLiveness: null,
 });
-async function fixture(run, sourceId = "source") {
+async function fixture(run, sourceId = "source", beforeDetail = () => {}) {
   const threads = [
     thread(sourceId),
     thread("worker"),
     thread("foreign", "other"),
   ];
+  let snapshotSequence = 10;
   const requests = [];
   const messages = [];
   const receipts = new Map();
@@ -46,11 +47,12 @@ async function fixture(run, sourceId = "source") {
     requests.push({ url: req.url, body });
     res.setHeader("content-type", "application/json");
     if (req.url === "/api/orchestration/shell")
-      return res.end(JSON.stringify({ snapshotSequence: 10, threads }));
-    if (req.url.startsWith("/api/orchestration/threads/"))
+      return res.end(JSON.stringify({ snapshotSequence, threads }));
+    if (req.url.startsWith("/api/orchestration/threads/")) {
+      if (beforeDetail(threads)) snapshotSequence++;
       return res.end(
         JSON.stringify({
-          snapshotSequence: 10,
+          snapshotSequence,
           thread: {
             ...threads[1],
             messages,
@@ -59,6 +61,7 @@ async function fixture(run, sourceId = "source") {
           page: { beforeCursor: null, hasMore: false, snapshotSequence: 10 },
         }),
       );
+    }
     if (req.url === "/api/orchestration/dispatch") {
       if (!receipts.has(body.commandId)) {
         receipts.set(body.commandId, { sequence: receipts.size + 1 });
@@ -262,4 +265,37 @@ test("retry IDs cannot collide across caller and retry delimiters", async () => 
     }, sourceId);
   }
   assert.equal(new Set(ids).size, 3);
+});
+
+test("read retries mismatched snapshot sequences and bounds unstable reads", async () => {
+  let changed = false;
+  await fixture(
+    async ({ call, requests }) => {
+      const read = await call("read_thread", { threadId: "worker" });
+      assert.equal(read.thread.title, "New title");
+      assert.equal(read.snapshotSequence, 11);
+      assert.equal(
+        requests.filter((r) => r.url.startsWith("/api/orchestration/threads/")).length,
+        2,
+      );
+    },
+    "source",
+    (threads) => {
+      if (changed) return false;
+      changed = true;
+      threads[1].title = "New title";
+      return true;
+    },
+  );
+  await fixture(
+    async ({ call, requests }) => {
+      assert.equal((await call("read_thread", { threadId: "worker" })).isError, true);
+      assert.equal(
+        requests.filter((r) => r.url.startsWith("/api/orchestration/threads/")).length,
+        3,
+      );
+    },
+    "source",
+    () => true,
+  );
 });
