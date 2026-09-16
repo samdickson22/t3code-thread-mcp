@@ -473,7 +473,7 @@ export function createGlobalServer({
     globalTools.map((t) => [t.name, ajv.compile(t.inputSchema)]),
   );
   const server = new Server(
-    { name: "t3code-thread-mcp", version: "0.3.0-next.2" },
+    { name: "t3code-thread-mcp", version: "0.3.0" },
     { capabilities: { tools: {} } },
   );
   server.setRequestHandler(ListToolsRequestSchema, async () => ({

@@ -1,6 +1,6 @@
 {
   "name": "t3code-thread-mcp",
-  "version": "0.3.0-next.2",
+  "version": "0.3.0",
   "description": "MCP tools for persistent T3 Code threads over its existing HTTP API",
   "type": "module",
   "bin": {
