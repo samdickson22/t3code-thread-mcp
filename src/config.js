@@ -2,6 +2,11 @@ import { readFileSync, existsSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 export function loadConfig(args = process.argv.slice(2), env = process.env) {
+  if (args[0] === "--desktop") {
+    if (args.length === 1) return { desktop: {} };
+    if (args.length === 3 && args[1] === "--desktop-state-dir" && args[2]) return { desktop: { stateDir: args[2] } };
+    throw new Error("Usage: --desktop [--desktop-state-dir PATH]");
+  }
   if (args.length && (args.length !== 2 || args[0] !== "--config"))
     throw new Error("Usage: --config PATH");
   const index = args.indexOf("--config");

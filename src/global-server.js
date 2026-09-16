@@ -11,9 +11,11 @@ import Ajv from "ajv";
 import { summary, ready } from "./server.js";
 import { globalTools } from "./global-tools.js";
 import { rpc } from "./rpc.js";
+import { desktopUnavailable } from "./desktop.js";
 
 export function createGlobalServer({
-  environments,
+  environments = [],
+  desktop,
   defaultEnvironment,
   fetch: fetcher = fetch,
   pollIntervalMs = 500,
@@ -58,14 +60,6 @@ export function createGlobalServer({
       shell: (signal) => request("/api/orchestration/shell", undefined, signal),
     });
   }
-  const route = (id) => {
-    const client = clients.get(id ?? defaultEnvironment);
-    if (!client)
-      throw new Error(
-        "Unknown or missing environmentId. Use list_environments.",
-      );
-    return client;
-  };
   const find = (snapshot, id) => {
     const thread = snapshot.threads.find((t) => t.id === id);
     if (!thread) throw new Error("Thread is unavailable.");
@@ -104,12 +98,19 @@ export function createGlobalServer({
     };
   };
   const execute = async (name, input, signal) => {
+    const availableClients = desktop ? await desktop.clients(signal) : clients;
+    const selectedDefault = desktop && availableClients.size === 1 ? availableClients.keys().next().value : defaultEnvironment;
+    const route = (id) => {
+      const client = availableClients.get(id ?? selectedDefault);
+      if (!client) throw new Error("Unknown or missing environmentId. Use list_environments.");
+      return client;
+    };
     if (name === "list_environments")
       return {
-        environments: [...clients.values()].map((c) => ({
+        environments: [...availableClients.values()].map((c) => ({
           id: c.id,
           label: c.label,
-          isDefault: c.id === defaultEnvironment,
+          isDefault: c.id === selectedDefault,
         })),
       };
     if (name === "wait_threads") {
@@ -233,7 +234,7 @@ export function createGlobalServer({
           installed: p.installed,
           enabled: p.enabled,
           status: p.status,
-          authStatus: p.auth?.status,
+          authStatus: p.authStatus ?? p.auth?.status,
           models: p.models,
         })),
       };
@@ -472,7 +473,7 @@ export function createGlobalServer({
     globalTools.map((t) => [t.name, ajv.compile(t.inputSchema)]),
   );
   const server = new Server(
-    { name: "t3code-thread-mcp", version: "0.2.0" },
+    { name: "t3code-thread-mcp", version: "0.3.0-next.1" },
     { capabilities: { tools: {} } },
   );
   server.setRequestHandler(ListToolsRequestSchema, async () => ({
@@ -490,6 +491,7 @@ export function createGlobalServer({
       };
     } catch (error) {
       const safe = [
+        desktopUnavailable,
         "Unknown or missing environmentId. Use list_environments.",
         "Thread is unavailable.",
         "Project is unavailable.",

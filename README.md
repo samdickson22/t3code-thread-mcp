@@ -15,6 +15,33 @@ This package is distributed through GitHub releases; it is not currently publish
 
 ## Connect computers
 
+### Reuse the T3 desktop connection manager
+
+With a T3 desktop build that supports the connection bridge, run:
+
+```sh
+t3code-thread-mcp --desktop
+```
+
+Register that command with your MCP host. It uses the running desktop app's
+computer list and authenticated connections, including T3 Connect and SSH. Add
+or remove computers in T3's **Settings → Connections**; the MCP refreshes that
+list on each call. No parent ID, server URL, or access token is required.
+
+This mode requires the companion T3 desktop change; the 0.2.0 release above does
+not include this MCP adapter. For the reviewed development version, install
+`git+https://github.com/samdickson22/t3code-thread-mcp.git#feat/desktop-connections`.
+The MCP runs on the same computer as the desktop app. Agents on another computer
+need access to a bridge-enabled desktop there; this does not automatically
+install tools into remote provider sessions.
+
+For a custom T3 home, use `--desktop --desktop-state-dir /path/to/t3-home/userdata`.
+The app must remain open. Closing it rejects new operations; agent work already
+accepted by a server may continue. Connection credentials stay inside T3. The
+existing direct-connection and legacy scoped modes below are unchanged.
+
+### Configure direct connections
+
 For one computer, supply `T3_URL` and `T3_ACCESS_TOKEN` to the MCP process through your host's environment or secret manager. Use HTTPS remotely; loopback HTTP is supported. Obtain the access token through T3's normal pairing/token-exchange flow. When it expires, refresh it and restart the MCP process.
 
 For several computers, create `~/.config/t3code-thread-mcp/config.json`:

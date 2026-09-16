@@ -1,6 +1,6 @@
 {
   "name": "t3code-thread-mcp",
-  "version": "0.2.0",
+  "version": "0.3.0-next.1",
   "description": "MCP tools for persistent T3 Code threads over its existing HTTP API",
   "type": "module",
   "bin": {
@@ -14,7 +14,7 @@
   "scripts": {
     "start": "node src/cli.js",
     "test": "node --test",
-    "check": "node --check src/cli.js && node --check src/server.js && node --check src/global-server.js && node --check src/global-tools.js && node --check src/config.js && node --check src/rpc.js"
+    "check": "node --check src/cli.js && node --check src/server.js && node --check src/global-server.js && node --check src/global-tools.js && node --check src/config.js && node --check src/rpc.js && node --check src/desktop.js"
   },
   "engines": {
     "node": ">=22"
