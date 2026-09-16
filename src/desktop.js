@@ -47,6 +47,8 @@ export function createDesktopTransport({
   address = desktopAddress(stateDir),
 } = {}) {
   const call = async (operation, fields = {}, signal) => {
+    if (process.platform === "win32")
+      throw new Error("Desktop connection mode is currently available on macOS and Linux. Use direct connection configuration on Windows.");
     if (process.platform !== "win32") {
       try {
         const [directory, socket] = await Promise.all([

@@ -17,7 +17,7 @@ This package is distributed through GitHub releases; it is not currently publish
 
 ### Reuse the T3 desktop connection manager
 
-With a T3 desktop build that supports the connection bridge, run:
+On macOS or Linux, with a T3 desktop build that supports the connection bridge, run:
 
 ```sh
 t3code-thread-mcp --desktop
@@ -31,7 +31,7 @@ list on each call. No parent ID, server URL, or access token is required.
 This mode requires [the companion T3 desktop change](https://github.com/pingdotgg/t3code/pull/12148); the 0.2.0 release above does
 not include this MCP adapter. For the reviewed development version, install
 `git+https://github.com/samdickson22/t3code-thread-mcp.git#feat/desktop-connections`.
-The MCP runs on the same computer as the desktop app. Agents on another computer
+Windows desktop mode is disabled until its named-pipe endpoint can be authenticated; use direct connection configuration on Windows. The MCP runs on the same computer as the desktop app. Agents on another computer
 need access to a bridge-enabled desktop there; this does not automatically
 install tools into remote provider sessions.
 
