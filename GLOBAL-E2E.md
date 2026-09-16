@@ -16,6 +16,8 @@ The models were `gpt-6-astra` with low reasoning and Claude Fable 5.1 with low e
 
 Both conversations were opened and inspected through browser computer use. [Astra screenshot](test/evidence/astra-cross-env.png), [Fable screenshot](test/evidence/fable-cross-env.png), and [messages and tool calls](test/evidence/cross-environment.json). The initial Astra launch failed because the test fixture's TOML arguments were incorrectly shell-quoted; correcting those arguments allowed the same test thread to run.
 
+After the final review, both provider sessions were stopped and their MCP registration was changed to the globally installed executable from the final package. The repeated exchange returned `GLOBAL_INSTALL_FABLE_REPLY` from Fable and `GLOBAL_INSTALL_E2E_PASSED` from Astra. [Final package evidence](test/evidence/final-global-package.json) records the package checksum and tool calls; [the browser screenshot](test/evidence/final-global-package.png) shows the result.
+
 ## Lifecycle and limitations
 
 The real Fable conversation passed rename, pin, settle, archive discovery, unarchive, history read, revival with remembered context, and unpin. Snooze and unsnooze also passed against the live server. The recall prompt did not contain the marker's value. [Lifecycle evidence](test/evidence/lifecycle-evidence.json) and [the restored conversation in the browser](test/evidence/fable-lifecycle.png).

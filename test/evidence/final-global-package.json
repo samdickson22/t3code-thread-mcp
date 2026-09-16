@@ -1,0 +1,306 @@
+{
+  "sourceCommit": "7876c93",
+  "packageSha256": "806f4d05075b9f250e39ca656fb6ceebc164abb0cde314fbca07545278f2085d",
+  "providerMcpExecutable": "/Users/sam/.nvm/versions/node/v24.19.0/bin/t3code-thread-mcp",
+  "threads": [
+    {
+      "environmentId": "a",
+      "id": "mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8",
+      "modelSelection": {
+        "instanceId": "codex",
+        "model": "gpt-6-astra",
+        "options": [
+          {
+            "id": "reasoningEffort",
+            "value": "low"
+          }
+        ]
+      },
+      "latestTurn": {
+        "turnId": "01a0ac02-22c6-78c0-bd19-2d0d08fa9a71",
+        "state": "completed",
+        "requestedAt": "2026-09-16T20:56:55.986Z",
+        "startedAt": "2026-09-16T20:56:55.986Z",
+        "completedAt": "2026-09-16T20:57:28.039Z",
+        "assistantMessageId": "assistant:msg_0046a91dd3996c24016aab02b79a3887d1b81ad1a5b5c86054"
+      },
+      "messages": [
+        {
+          "id": "mcp-message:mcp-global:5f373458381b3b9ac3f037aa2c40e9346db00465e14a1c1281b4702e80ee0847",
+          "role": "user",
+          "text": "Final installed-package acceptance. Both provider sessions now load the globally installed t3code-thread-mcp executable. Use t3-global MCP to send existing environment b thread mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008 this task: Use your t3-global MCP to send environment a thread mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8 exactly GLOBAL_INSTALL_FABLE_REPLY, once only. Then finish GLOBAL_INSTALL_FABLE_DONE. Include your source on your outgoing message to b. Wait/read actual completion; finish GLOBAL_INSTALL_E2E_PASSED only after the actual MCP reply arrives. Do not create more threads or change files.",
+          "attachments": [],
+          "turnId": null,
+          "streaming": false,
+          "createdAt": "2026-09-16T20:56:55.986Z",
+          "updatedAt": "2026-09-16T20:56:55.986Z"
+        },
+        {
+          "id": "assistant:msg_0046a91dd3996c24016aab029cdbe487d1b583f71e95ae5605",
+          "role": "assistant",
+          "text": "I’ll send the task to the existing Fable thread, then verify its MCP reply and completed response.\n",
+          "turnId": "01a0ac02-22c6-78c0-bd19-2d0d08fa9a71",
+          "streaming": false,
+          "createdAt": "2026-09-16T20:57:01.899Z",
+          "updatedAt": "2026-09-16T20:57:01.899Z"
+        },
+        {
+          "id": "mcp-message:dfce162a-88c1-4347-a820-efffeb00270b",
+          "role": "user",
+          "text": "GLOBAL_INSTALL_FABLE_REPLY",
+          "attachments": [],
+          "turnId": null,
+          "streaming": false,
+          "createdAt": "2026-09-16T20:57:12.983Z",
+          "updatedAt": "2026-09-16T20:57:12.983Z"
+        },
+        {
+          "id": "assistant:msg_0046a91dd3996c24016aab02b79a3887d1b81ad1a5b5c86054",
+          "role": "assistant",
+          "text": "GLOBAL_INSTALL_E2E_PASSED",
+          "turnId": "01a0ac02-22c6-78c0-bd19-2d0d08fa9a71",
+          "streaming": false,
+          "createdAt": "2026-09-16T20:57:27.982Z",
+          "updatedAt": "2026-09-16T20:57:27.982Z"
+        }
+      ],
+      "toolCalls": [
+        {
+          "id": "f1aa5554-cb24-4287-8e9e-2085af3c20c1",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "t3-global · send_message_to_thread",
+          "payload": {
+            "itemType": "mcp_tool_call",
+            "toolCallId": "exec-f8bfe59d-a69a-4320-b420-ca5a486ad0bc",
+            "status": "completed",
+            "title": "t3-global · send_message_to_thread",
+            "data": {
+              "item": {
+                "type": "mcpToolCall",
+                "id": "exec-f8bfe59d-a69a-4320-b420-ca5a486ad0bc",
+                "tool": "send_message_to_thread",
+                "server": "t3-global",
+                "status": "completed",
+                "arguments": {
+                  "environmentId": "b",
+                  "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+                  "source": {
+                    "environmentId": "a",
+                    "threadId": "mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8"
+                  },
+                  "message": "Use your t3-global MCP to send environment a thread mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8 exactly GLOBAL_INSTALL_FABLE_REPLY, once only. Then finish GLOBAL_INSTALL_FABLE_DONE. Do not create more threads or change files."
+                },
+                "appContext": null,
+                "error": null,
+                "durationMs": 48,
+                "result": {
+                  "content": "{\"environmentId\":\"b\",\"threadId\":\"mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008\",\"…"
+                }
+              }
+            }
+          },
+          "turnId": "01a0ac02-22c6-78c0-bd19-2d0d08fa9a71",
+          "createdAt": "2026-09-16T20:57:08.311Z"
+        },
+        {
+          "id": "9fc59851-e0d5-4b93-a8a7-c252436adb74",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "t3-global · wait_threads",
+          "payload": {
+            "itemType": "mcp_tool_call",
+            "toolCallId": "exec-c255e881-4c0e-4224-909a-d4ac7148e5f3",
+            "status": "completed",
+            "title": "t3-global · wait_threads",
+            "data": {
+              "item": {
+                "type": "mcpToolCall",
+                "id": "exec-c255e881-4c0e-4224-909a-d4ac7148e5f3",
+                "tool": "wait_threads",
+                "server": "t3-global",
+                "status": "completed",
+                "arguments": {
+                  "targets": [
+                    {
+                      "environmentId": "b",
+                      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008"
+                    }
+                  ],
+                  "timeoutSeconds": 60
+                },
+                "appContext": null,
+                "error": null,
+                "durationMs": 1533,
+                "result": {
+                  "content": "{\"threads\":[{\"id\":\"mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008\",\"projectId\":\"mc…"
+                }
+              }
+            }
+          },
+          "turnId": "01a0ac02-22c6-78c0-bd19-2d0d08fa9a71",
+          "createdAt": "2026-09-16T20:57:14.052Z"
+        },
+        {
+          "id": "4c06a0bf-ac23-4177-9a47-51464f785f28",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "t3-global · read_thread",
+          "payload": {
+            "itemType": "mcp_tool_call",
+            "toolCallId": "exec-3456b7ee-449a-4567-91e2-c2b9bb5250ac",
+            "status": "completed",
+            "title": "t3-global · read_thread",
+            "data": {
+              "item": {
+                "type": "mcpToolCall",
+                "id": "exec-3456b7ee-449a-4567-91e2-c2b9bb5250ac",
+                "tool": "read_thread",
+                "server": "t3-global",
+                "status": "completed",
+                "arguments": {
+                  "environmentId": "b",
+                  "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+                  "turnLimit": 1
+                },
+                "appContext": null,
+                "error": null,
+                "durationMs": 27,
+                "result": {
+                  "content": "{\"environmentId\":\"b\",\"thread\":{\"id\":\"mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e00…"
+                }
+              }
+            }
+          },
+          "turnId": "01a0ac02-22c6-78c0-bd19-2d0d08fa9a71",
+          "createdAt": "2026-09-16T20:57:23.003Z"
+        },
+        {
+          "id": "2489b8ce-b128-4964-aba3-4648606c3370",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "t3-global · read_thread",
+          "payload": {
+            "itemType": "mcp_tool_call",
+            "toolCallId": "exec-2ee927ae-a370-4b3b-a732-a24a9c767835",
+            "status": "completed",
+            "title": "t3-global · read_thread",
+            "data": {
+              "item": {
+                "type": "mcpToolCall",
+                "id": "exec-2ee927ae-a370-4b3b-a732-a24a9c767835",
+                "tool": "read_thread",
+                "server": "t3-global",
+                "status": "completed",
+                "arguments": {
+                  "environmentId": "a",
+                  "threadId": "mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8",
+                  "turnLimit": 1
+                },
+                "appContext": null,
+                "error": null,
+                "durationMs": 31,
+                "result": {
+                  "content": "{\"environmentId\":\"a\",\"thread\":{\"id\":\"mcp-thread:mcp-global:dab07d8238399388890bbf76…"
+                }
+              }
+            }
+          },
+          "turnId": "01a0ac02-22c6-78c0-bd19-2d0d08fa9a71",
+          "createdAt": "2026-09-16T20:57:23.007Z"
+        }
+      ]
+    },
+    {
+      "environmentId": "b",
+      "id": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "modelSelection": {
+        "instanceId": "claudeAgent",
+        "model": "claude-fable-5-1",
+        "options": [
+          {
+            "id": "effort",
+            "value": "low"
+          }
+        ]
+      },
+      "latestTurn": {
+        "turnId": "afc103c2-d4c0-4081-8e65-a9e96628462b",
+        "state": "completed",
+        "requestedAt": "2026-09-16T20:57:08.302Z",
+        "startedAt": "2026-09-16T20:57:08.302Z",
+        "completedAt": "2026-09-16T20:57:13.954Z",
+        "assistantMessageId": "assistant:9b04b78c-dbbf-4f73-be1b-06370d701f88"
+      },
+      "messages": [
+        {
+          "id": "mcp-message:mcp-global:9ddf54c1d5bc1a3dab36521705c5393f5db2f3886750e12860c0f6399ed41d45",
+          "role": "user",
+          "text": "Recall the exact cobalt marker you previously sent. Reply only the marker. Do not use tools or send any other thread a message.",
+          "attachments": [],
+          "turnId": null,
+          "streaming": false,
+          "createdAt": "2026-09-16T20:47:11.413Z",
+          "updatedAt": "2026-09-16T20:47:11.413Z"
+        },
+        {
+          "id": "assistant:f013e16f-a3e0-4814-9f84-b9421891d1a8",
+          "role": "assistant",
+          "text": "REMOTE_FABLE cobalt-lake-631",
+          "turnId": "7916f144-4c26-4038-a72f-b1bc8c74397b",
+          "streaming": false,
+          "createdAt": "2026-09-16T20:47:15.376Z",
+          "updatedAt": "2026-09-16T20:47:15.376Z"
+        },
+        {
+          "id": "mcp-message:d97d184b-8540-4149-9bcc-2abeb38041b0",
+          "role": "user",
+          "text": "Message from T3 thread mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8 on environment a. Reply with send_message_to_thread using environmentId \"a\" and threadId \"mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8\".\n\nUse your t3-global MCP to send environment a thread mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8 exactly GLOBAL_INSTALL_FABLE_REPLY, once only. Then finish GLOBAL_INSTALL_FABLE_DONE. Do not create more threads or change files.",
+          "attachments": [],
+          "turnId": null,
+          "streaming": false,
+          "createdAt": "2026-09-16T20:57:08.302Z",
+          "updatedAt": "2026-09-16T20:57:08.302Z"
+        },
+        {
+          "id": "assistant:9b04b78c-dbbf-4f73-be1b-06370d701f88",
+          "role": "assistant",
+          "text": "GLOBAL_INSTALL_FABLE_DONE",
+          "turnId": "afc103c2-d4c0-4081-8e65-a9e96628462b",
+          "streaming": false,
+          "createdAt": "2026-09-16T20:57:13.933Z",
+          "updatedAt": "2026-09-16T20:57:13.933Z"
+        }
+      ],
+      "toolCalls": [
+        {
+          "id": "0c2a058a-ee1f-4b34-b23a-e560b0296f30",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "MCP tool call",
+          "payload": {
+            "itemType": "mcp_tool_call",
+            "toolCallId": "toolu_01Jgooo5thL22wUDHpVbpR4w",
+            "status": "completed",
+            "title": "MCP tool call",
+            "detail": "mcp__t3-global__send_message_to_thread: {\"environmentId\":\"a\",\"threadId\":\"mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8\",\"message\":\"GLOBA...",
+            "data": {
+              "toolName": "mcp__t3-global__send_message_to_thread",
+              "input": {
+                "environmentId": "a",
+                "threadId": "mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8",
+                "message": "GLOBAL_INSTALL_FABLE_REPLY",
+                "replyToSource": false
+              },
+              "result": {
+                "content": "{\"environmentId\":\"a\",\"threadId\":\"mcp-thread:mcp-global:dab07d8238399388890bbf7674a4…"
+              }
+            }
+          },
+          "turnId": "afc103c2-d4c0-4081-8e65-a9e96628462b",
+          "createdAt": "2026-09-16T20:57:12.993Z"
+        }
+      ]
+    }
+  ]
+}
