@@ -4,16 +4,41 @@ Manage persistent T3 threads across projects and computers from one globally ins
 
 ## Install globally
 
-Requires Node 22 or later. Tested with released T3 0.0.40 and 0.0.42.
+Requires Node 22 or later. Desktop discovery requires the companion T3 desktop build linked below. Direct connections were tested with released T3 0.0.40 and 0.0.42.
 
 ```sh
-npm install -g https://github.com/samdickson22/t3code-thread-mcp/releases/download/v0.2.0/t3code-thread-mcp-0.2.0.tgz
+npm install -g https://github.com/samdickson22/t3code-thread-mcp/releases/download/v0.3.0/t3code-thread-mcp-0.3.0.tgz
 t3code-thread-mcp --help
 ```
 
 This package is distributed through GitHub releases; it is not currently published to the npm registry. You can also clone this repository, run `npm ci`, and launch `node src/cli.js`.
 
 ## Connect computers
+
+### Reuse the T3 desktop connection manager
+
+On macOS or Linux, with a T3 desktop build that supports the connection bridge, run:
+
+```sh
+t3code-thread-mcp
+```
+
+Register that command with your MCP host. It uses the running desktop app's
+computer list and authenticated connections, including T3 Connect and SSH. Add
+or remove computers in T3's **Settings → Connections**; the MCP refreshes that
+list on each call. No parent ID, server URL, or access token is required.
+
+Desktop discovery is the default when no direct connection is configured. It requires [the companion T3 desktop change](https://github.com/pingdotgg/t3code/pull/12148).
+Windows desktop mode is disabled until its named-pipe endpoint can be authenticated; use direct connection configuration on Windows. The MCP runs on the same computer as the desktop app. Agents on another computer
+need access to a bridge-enabled desktop there; this does not automatically
+install tools into remote provider sessions.
+
+For a custom T3 home, use `--desktop-state-dir /path/to/t3-home/userdata`.
+The app must remain open. Closing it rejects new operations; agent work already
+accepted by a server may continue. Connection credentials stay inside T3. The
+existing direct-connection and legacy scoped modes below are unchanged.
+
+### Configure direct connections
 
 For one computer, supply `T3_URL` and `T3_ACCESS_TOKEN` to the MCP process through your host's environment or secret manager. Use HTTPS remotely; loopback HTTP is supported. Obtain the access token through T3's normal pairing/token-exchange flow. When it expires, refresh it and restart the MCP process.
 
@@ -53,19 +78,17 @@ Codex user configuration (`~/.codex/config.toml`):
 ```toml
 [mcp_servers.t3_threads]
 command = "/absolute/path/to/t3code-thread-mcp"
-args = ["--config", "/absolute/path/to/config.json"]
-env_vars = ["T3_DESKTOP_TOKEN", "T3_SERVER_TOKEN"]
 ```
 
-Find the executable path with `command -v t3code-thread-mcp`. Codex must explicitly forward the token variable names with `env_vars`; values stay in the launch environment. For a single-server setup, omit `args` and forward `T3_URL` and `T3_ACCESS_TOKEN` instead.
+Find the executable path with `command -v t3code-thread-mcp`. No arguments or token variables are needed for desktop discovery. For direct connections, add `--config` arguments and forward the required token variable names through `env_vars`.
 
 Claude Code user registration:
 
 ```sh
-claude mcp add --scope user t3_threads -- /absolute/path/to/t3code-thread-mcp --config /absolute/path/to/config.json
+claude mcp add --scope user t3_threads -- /absolute/path/to/t3code-thread-mcp
 ```
 
-Supply the token variables in the environment that launches Claude/T3. If T3 uses a custom Codex or Claude home, register there. Alternatively, configure the MCP through T3's provider launch arguments. The [live validation](GLOBAL-E2E.md) exercised both providers using per-environment launch settings.
+For direct connections, supply token variables in the environment that launches Claude/T3. If T3 uses a custom Codex or Claude home, register there. Alternatively, configure the MCP through T3's provider launch arguments. The [live validation](GLOBAL-E2E.md) exercised both providers using per-environment launch settings.
 
 For other MCP hosts, launch the same executable with stdio transport, optional `--config` arguments, and the required environment variables. The MCP does not print credentials or write logs to stdout.
 
