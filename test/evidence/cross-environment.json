@@ -1,0 +1,462 @@
+{
+  "serverVersion": "0.0.42",
+  "topology": "Two isolated server environments on one Mac; not two physical computers",
+  "threads": [
+    {
+      "environmentId": "a",
+      "id": "mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8",
+      "projectId": "mcp-project:mcp-global:ed595bdc6d36738f03cf18054e16c2415b10d7540986ab2aadc352134a83b1f5",
+      "modelSelection": {
+        "instanceId": "codex",
+        "model": "gpt-6-astra",
+        "options": [
+          {
+            "id": "reasoningEffort",
+            "value": "low"
+          }
+        ]
+      },
+      "latestTurn": {
+        "turnId": "01a0abf5-e620-7ea2-8f08-91826821c12c",
+        "state": "completed",
+        "requestedAt": "2026-09-16T20:43:33.906Z",
+        "startedAt": "2026-09-16T20:43:33.906Z",
+        "completedAt": "2026-09-16T20:44:17.669Z",
+        "assistantMessageId": "assistant:msg_0e48b739518b9e68016aaaffa086ac87d2ae132c8e3ae0b2ba"
+      },
+      "messages": [
+        {
+          "id": "mcp-message:mcp-global:28d71ec5904519ad54e6c9f5214a9b01d493834083d50b6f30c514a45a58f22b",
+          "role": "user",
+          "text": "This is an isolated global MCP acceptance test. Your environment is a and your thread ID is mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8. Use t3-global MCP tools only. Discover environments and projects. Create a new thread on environment b in project mcp-project:mcp-global:9ef4597a2c69e54c84b2493ae3e488ac007eedf49426449a119bbe3d85143724, title Global remote Fable child, modelSelection {\"instanceId\":\"claudeAgent\",\"model\":\"claude-fable-5-1\",\"options\":[{\"id\":\"effort\",\"value\":\"low\"}]}, runtimeMode full-access. Send that thread this task: 'Use the t3-global MCP send_message_to_thread tool to send exactly REMOTE_FABLE cobalt-lake-631 to environment a thread mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8. Send once only, then reply here FABLE_SENT cobalt-lake-631. Do not change files.' Include your actual source environment/thread on the message. Wait for its completion and read it. Finish GLOBAL_CROSS_ENV_PASSED and child ID only after verifying Fable sent back the marker through the MCP. Do not use shell or provider subagents.",
+          "attachments": [],
+          "turnId": null,
+          "streaming": false,
+          "createdAt": "2026-09-16T20:42:24.443Z",
+          "updatedAt": "2026-09-16T20:42:24.443Z"
+        },
+        {
+          "id": "mcp-message:mcp-global:b57f4e58ec1be956deb80478532157757cca4852b5c1c8a7644665b0c07d5aec",
+          "role": "user",
+          "text": "This is an isolated global MCP acceptance test. Your environment is a and your thread ID is mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8. Use t3-global MCP tools only. Discover environments and projects. Create a new thread on environment b in project mcp-project:mcp-global:9ef4597a2c69e54c84b2493ae3e488ac007eedf49426449a119bbe3d85143724, title Global remote Fable child, modelSelection {\"instanceId\":\"claudeAgent\",\"model\":\"claude-fable-5-1\",\"options\":[{\"id\":\"effort\",\"value\":\"low\"}]}, runtimeMode full-access. Send that thread this task: 'Use the t3-global MCP send_message_to_thread tool to send exactly REMOTE_FABLE cobalt-lake-631 to environment a thread mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8. Send once only, then reply here FABLE_SENT cobalt-lake-631. Do not change files.' Include your actual source environment/thread on the message. Wait for its completion and read it. Finish GLOBAL_CROSS_ENV_PASSED and child ID only after verifying Fable sent back the marker through the MCP. Do not use shell or provider subagents.",
+          "attachments": [],
+          "turnId": null,
+          "streaming": false,
+          "createdAt": "2026-09-16T20:43:33.906Z",
+          "updatedAt": "2026-09-16T20:43:33.906Z"
+        },
+        {
+          "id": "assistant:msg_0e48b739518b9e68016aaaff7a779487d28869db6fcaf29931",
+          "role": "assistant",
+          "text": "I’ll discover the environments and projects, create the Fable thread on environment b, and verify its MCP reply and completion.\n",
+          "turnId": "01a0abf5-e620-7ea2-8f08-91826821c12c",
+          "streaming": false,
+          "createdAt": "2026-09-16T20:43:39.727Z",
+          "updatedAt": "2026-09-16T20:43:39.727Z"
+        },
+        {
+          "id": "mcp-message:67b7ab3c-2c16-4926-9013-b4fbc957479b",
+          "role": "user",
+          "text": "REMOTE_FABLE cobalt-lake-631",
+          "attachments": [],
+          "turnId": null,
+          "streaming": false,
+          "createdAt": "2026-09-16T20:44:07.846Z",
+          "updatedAt": "2026-09-16T20:44:07.846Z"
+        },
+        {
+          "id": "assistant:msg_0e48b739518b9e68016aaaffa086ac87d2ae132c8e3ae0b2ba",
+          "role": "assistant",
+          "text": "GLOBAL_CROSS_ENV_PASSED mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+          "turnId": "01a0abf5-e620-7ea2-8f08-91826821c12c",
+          "streaming": false,
+          "createdAt": "2026-09-16T20:44:17.618Z",
+          "updatedAt": "2026-09-16T20:44:17.618Z"
+        }
+      ],
+      "toolCalls": [
+        {
+          "id": "bc47cedb-11de-4518-b020-9bad971d3f3e",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "t3-global · list_environments",
+          "payload": {
+            "itemType": "mcp_tool_call",
+            "toolCallId": "exec-28f56930-4856-48fe-b5c6-af843ff92076",
+            "status": "completed",
+            "title": "t3-global · list_environments",
+            "data": {
+              "item": {
+                "type": "mcpToolCall",
+                "id": "exec-28f56930-4856-48fe-b5c6-af843ff92076",
+                "tool": "list_environments",
+                "server": "t3-global",
+                "status": "completed",
+                "arguments": {},
+                "appContext": null,
+                "error": null,
+                "durationMs": 5,
+                "result": {
+                  "content": "{\"environments\":[{\"id\":\"a\",\"label\":\"Test computer A\",\"isDefault\":false},{\"id\":\"b\",\"…"
+                }
+              }
+            }
+          },
+          "turnId": "01a0abf5-e620-7ea2-8f08-91826821c12c",
+          "createdAt": "2026-09-16T20:43:44.037Z"
+        },
+        {
+          "id": "bae4d8eb-7346-457e-bc94-5dc4cbf639e9",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "t3-global · list_projects",
+          "payload": {
+            "itemType": "mcp_tool_call",
+            "toolCallId": "exec-5f15af76-464e-4d6a-b6d0-583a853d89cc",
+            "status": "completed",
+            "title": "t3-global · list_projects",
+            "data": {
+              "item": {
+                "type": "mcpToolCall",
+                "id": "exec-5f15af76-464e-4d6a-b6d0-583a853d89cc",
+                "tool": "list_projects",
+                "server": "t3-global",
+                "status": "completed",
+                "arguments": {
+                  "environmentId": "a"
+                },
+                "appContext": null,
+                "error": null,
+                "durationMs": 27,
+                "result": {
+                  "content": "{\"environmentId\":\"a\",\"projects\":[{\"id\":\"mcp-project:mcp-global:ed595bdc6d36738f03cf…"
+                }
+              }
+            }
+          },
+          "turnId": "01a0abf5-e620-7ea2-8f08-91826821c12c",
+          "createdAt": "2026-09-16T20:43:44.066Z"
+        },
+        {
+          "id": "ea6237f7-5b40-447e-9fdb-41ce63c163e4",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "t3-global · list_projects",
+          "payload": {
+            "itemType": "mcp_tool_call",
+            "toolCallId": "exec-0d478052-f02e-4aa9-a19f-11508778cc93",
+            "status": "completed",
+            "title": "t3-global · list_projects",
+            "data": {
+              "item": {
+                "type": "mcpToolCall",
+                "id": "exec-0d478052-f02e-4aa9-a19f-11508778cc93",
+                "tool": "list_projects",
+                "server": "t3-global",
+                "status": "completed",
+                "arguments": {
+                  "environmentId": "b"
+                },
+                "appContext": null,
+                "error": null,
+                "durationMs": 43,
+                "result": {
+                  "content": "{\"environmentId\":\"b\",\"projects\":[{\"id\":\"mcp-project:mcp-global:9ef4597a2c69e54c84b2…"
+                }
+              }
+            }
+          },
+          "turnId": "01a0abf5-e620-7ea2-8f08-91826821c12c",
+          "createdAt": "2026-09-16T20:43:44.152Z"
+        },
+        {
+          "id": "a50d7dbb-40be-4214-817a-9ec5e6dcac09",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "t3-global · create_thread",
+          "payload": {
+            "itemType": "mcp_tool_call",
+            "toolCallId": "exec-5a71699c-402a-433d-bc32-2726c2e03c1a",
+            "status": "completed",
+            "title": "t3-global · create_thread",
+            "data": {
+              "item": {
+                "type": "mcpToolCall",
+                "id": "exec-5a71699c-402a-433d-bc32-2726c2e03c1a",
+                "tool": "create_thread",
+                "server": "t3-global",
+                "status": "completed",
+                "arguments": {
+                  "environmentId": "b",
+                  "projectId": "mcp-project:mcp-global:9ef4597a2c69e54c84b2493ae3e488ac007eedf49426449a119bbe3d85143724",
+                  "title": "Global remote Fable child",
+                  "modelSelection": {
+                    "instanceId": "claudeAgent",
+                    "model": "claude-fable-5-1",
+                    "options": [
+                      {
+                        "id": "effort",
+                        "value": "low"
+                      }
+                    ]
+                  },
+                  "runtimeMode": "full-access"
+                },
+                "appContext": null,
+                "error": null,
+                "durationMs": 34,
+                "result": {
+                  "content": "{\"environmentId\":\"b\",\"threadId\":\"mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008\",\"…"
+                }
+              }
+            }
+          },
+          "turnId": "01a0abf5-e620-7ea2-8f08-91826821c12c",
+          "createdAt": "2026-09-16T20:43:50.646Z"
+        },
+        {
+          "id": "d9114836-2062-4c33-8b12-7a8ebdcdec77",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "t3-global · send_message_to_thread",
+          "payload": {
+            "itemType": "mcp_tool_call",
+            "toolCallId": "exec-3e4e750c-5cf8-491e-908e-fed48c5ec4ac",
+            "status": "completed",
+            "title": "t3-global · send_message_to_thread",
+            "data": {
+              "item": {
+                "type": "mcpToolCall",
+                "id": "exec-3e4e750c-5cf8-491e-908e-fed48c5ec4ac",
+                "tool": "send_message_to_thread",
+                "server": "t3-global",
+                "status": "completed",
+                "arguments": {
+                  "environmentId": "b",
+                  "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+                  "source": {
+                    "environmentId": "a",
+                    "threadId": "mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8"
+                  },
+                  "message": "Use the t3-global MCP send_message_to_thread tool to send exactly REMOTE_FABLE cobalt-lake-631 to environment a thread mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8. Send once only, then reply here FABLE_SENT cobalt-lake-631. Do not change files."
+                },
+                "appContext": null,
+                "error": null,
+                "durationMs": 46,
+                "result": {
+                  "content": "{\"environmentId\":\"b\",\"threadId\":\"mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008\",\"…"
+                }
+              }
+            }
+          },
+          "turnId": "01a0abf5-e620-7ea2-8f08-91826821c12c",
+          "createdAt": "2026-09-16T20:43:58.338Z"
+        },
+        {
+          "id": "91f9ee90-f345-4c72-ab34-3169ce91d422",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "t3-global · wait_threads",
+          "payload": {
+            "itemType": "mcp_tool_call",
+            "toolCallId": "exec-870d237f-72a8-48a3-88e4-a97bc500a205",
+            "status": "completed",
+            "title": "t3-global · wait_threads",
+            "data": {
+              "item": {
+                "type": "mcpToolCall",
+                "id": "exec-870d237f-72a8-48a3-88e4-a97bc500a205",
+                "tool": "wait_threads",
+                "server": "t3-global",
+                "status": "completed",
+                "arguments": {
+                  "targets": [
+                    {
+                      "environmentId": "b",
+                      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008"
+                    }
+                  ],
+                  "timeoutSeconds": 60
+                },
+                "appContext": null,
+                "error": null,
+                "durationMs": 7658,
+                "result": {
+                  "content": "{\"threads\":[{\"id\":\"mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008\",\"projectId\":\"mc…"
+                }
+              }
+            }
+          },
+          "turnId": "01a0abf5-e620-7ea2-8f08-91826821c12c",
+          "createdAt": "2026-09-16T20:44:09.138Z"
+        },
+        {
+          "id": "45b84525-0b36-48e9-849d-a70dc169a119",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "t3-global · read_thread",
+          "payload": {
+            "itemType": "mcp_tool_call",
+            "toolCallId": "exec-fe6e3491-566e-4502-b6fb-c3a7f3409c9a",
+            "status": "completed",
+            "title": "t3-global · read_thread",
+            "data": {
+              "item": {
+                "type": "mcpToolCall",
+                "id": "exec-fe6e3491-566e-4502-b6fb-c3a7f3409c9a",
+                "tool": "read_thread",
+                "server": "t3-global",
+                "status": "completed",
+                "arguments": {
+                  "environmentId": "b",
+                  "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008"
+                },
+                "appContext": null,
+                "error": null,
+                "durationMs": 22,
+                "result": {
+                  "content": "{\"environmentId\":\"b\",\"thread\":{\"id\":\"mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e00…"
+                }
+              }
+            }
+          },
+          "turnId": "01a0abf5-e620-7ea2-8f08-91826821c12c",
+          "createdAt": "2026-09-16T20:44:14.844Z"
+        },
+        {
+          "id": "0bf0ca77-e442-4bd6-88c9-543a56f9ede0",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "t3-global · read_thread",
+          "payload": {
+            "itemType": "mcp_tool_call",
+            "toolCallId": "exec-5bff67d2-7e90-4705-8d23-5add497a8c85",
+            "status": "completed",
+            "title": "t3-global · read_thread",
+            "data": {
+              "item": {
+                "type": "mcpToolCall",
+                "id": "exec-5bff67d2-7e90-4705-8d23-5add497a8c85",
+                "tool": "read_thread",
+                "server": "t3-global",
+                "status": "completed",
+                "arguments": {
+                  "environmentId": "a",
+                  "threadId": "mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8"
+                },
+                "appContext": null,
+                "error": null,
+                "durationMs": 68,
+                "result": {
+                  "content": "{\"environmentId\":\"a\",\"thread\":{\"id\":\"mcp-thread:mcp-global:dab07d8238399388890bbf76…"
+                }
+              }
+            }
+          },
+          "turnId": "01a0abf5-e620-7ea2-8f08-91826821c12c",
+          "createdAt": "2026-09-16T20:44:14.880Z"
+        }
+      ]
+    },
+    {
+      "environmentId": "b",
+      "id": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "projectId": "mcp-project:mcp-global:9ef4597a2c69e54c84b2493ae3e488ac007eedf49426449a119bbe3d85143724",
+      "modelSelection": {
+        "instanceId": "claudeAgent",
+        "model": "claude-fable-5-1",
+        "options": [
+          {
+            "id": "effort",
+            "value": "low"
+          }
+        ]
+      },
+      "latestTurn": {
+        "turnId": "9db7a424-2339-4a46-8577-c3330ed49114",
+        "state": "completed",
+        "requestedAt": "2026-09-16T20:43:58.324Z",
+        "startedAt": "2026-09-16T20:43:58.324Z",
+        "completedAt": "2026-09-16T20:44:09.087Z",
+        "assistantMessageId": "assistant:36d45e9f-7897-45cd-ac2e-4b5a45da10cc"
+      },
+      "messages": [
+        {
+          "id": "mcp-message:f10952db-dd80-4583-a4d8-e2275091afc8",
+          "role": "user",
+          "text": "Message from T3 thread mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8 on environment a. Reply with send_message_to_thread using environmentId \"a\" and threadId \"mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8\".\n\nUse the t3-global MCP send_message_to_thread tool to send exactly REMOTE_FABLE cobalt-lake-631 to environment a thread mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8. Send once only, then reply here FABLE_SENT cobalt-lake-631. Do not change files.",
+          "attachments": [],
+          "turnId": null,
+          "streaming": false,
+          "createdAt": "2026-09-16T20:43:58.324Z",
+          "updatedAt": "2026-09-16T20:43:58.324Z"
+        },
+        {
+          "id": "assistant:8e5fa92e-9beb-4cc8-84cf-a94d5aba9abe",
+          "role": "assistant",
+          "text": "I'll load the send tool and send the message once.",
+          "turnId": "9db7a424-2339-4a46-8577-c3330ed49114",
+          "streaming": false,
+          "createdAt": "2026-09-16T20:44:03.090Z",
+          "updatedAt": "2026-09-16T20:44:03.090Z"
+        },
+        {
+          "id": "assistant:36d45e9f-7897-45cd-ac2e-4b5a45da10cc",
+          "role": "assistant",
+          "text": "FABLE_SENT cobalt-lake-631",
+          "turnId": "9db7a424-2339-4a46-8577-c3330ed49114",
+          "streaming": false,
+          "createdAt": "2026-09-16T20:44:09.047Z",
+          "updatedAt": "2026-09-16T20:44:09.047Z"
+        }
+      ],
+      "toolCalls": [
+        {
+          "id": "0af0ebd4-a361-4d93-99c1-a30ca713c7d2",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "Tool call",
+          "payload": {
+            "itemType": "dynamic_tool_call",
+            "toolCallId": "toolu_016GJC5B8FRWwH8J2d2g51a5",
+            "status": "completed",
+            "title": "Tool call",
+            "detail": "ToolSearch: {\"query\":\"select:mcp__t3-global__send_message_to_thread\",\"max_results\":1}",
+            "data": {
+              "toolName": "ToolSearch"
+            }
+          },
+          "turnId": "9db7a424-2339-4a46-8577-c3330ed49114",
+          "createdAt": "2026-09-16T20:44:04.076Z"
+        },
+        {
+          "id": "f0e34a32-0582-44bf-92b7-15f713b652ce",
+          "tone": "tool",
+          "kind": "tool.completed",
+          "summary": "MCP tool call",
+          "payload": {
+            "itemType": "mcp_tool_call",
+            "toolCallId": "toolu_017cTpKSwtYtQ4keRCZsEAre",
+            "status": "completed",
+            "title": "MCP tool call",
+            "detail": "mcp__t3-global__send_message_to_thread: {\"environmentId\":\"a\",\"threadId\":\"mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8\",\"message\":\"REMOT...",
+            "data": {
+              "toolName": "mcp__t3-global__send_message_to_thread",
+              "input": {
+                "environmentId": "a",
+                "threadId": "mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8",
+                "message": "REMOTE_FABLE cobalt-lake-631",
+                "replyToSource": false
+              },
+              "result": {
+                "content": "{\"environmentId\":\"a\",\"threadId\":\"mcp-thread:mcp-global:dab07d8238399388890bbf7674a4…"
+              }
+            }
+          },
+          "turnId": "9db7a424-2339-4a46-8577-c3330ed49114",
+          "createdAt": "2026-09-16T20:44:07.858Z"
+        }
+      ]
+    }
+  ]
+}

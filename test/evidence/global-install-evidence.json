@@ -1,0 +1,78 @@
+[
+  {
+    "port": 44972,
+    "toolNames": [
+      "create_thread",
+      "list_threads",
+      "read_thread",
+      "send_message_to_thread",
+      "wait_threads",
+      "set_thread_settled",
+      "interrupt_thread",
+      "list_environments",
+      "list_projects",
+      "list_providers",
+      "list_archived_threads",
+      "set_thread_title",
+      "set_thread_archived",
+      "set_thread_pinned",
+      "set_thread_snoozed",
+      "delete_thread",
+      "stop_thread_session",
+      "respond_to_approval",
+      "respond_to_user_input",
+      "dismiss_user_input",
+      "create_project"
+    ],
+    "providerIds": [
+      "codex",
+      "claudeAgent",
+      "cursor",
+      "grok",
+      "opencode",
+      "antigravity"
+    ],
+    "noSourceThread": true,
+    "projectCreated": true,
+    "threadCreated": true,
+    "threadDeleted": true
+  },
+  {
+    "port": 44992,
+    "toolNames": [
+      "create_thread",
+      "list_threads",
+      "read_thread",
+      "send_message_to_thread",
+      "wait_threads",
+      "set_thread_settled",
+      "interrupt_thread",
+      "list_environments",
+      "list_projects",
+      "list_providers",
+      "list_archived_threads",
+      "set_thread_title",
+      "set_thread_archived",
+      "set_thread_pinned",
+      "set_thread_snoozed",
+      "delete_thread",
+      "stop_thread_session",
+      "respond_to_approval",
+      "respond_to_user_input",
+      "dismiss_user_input",
+      "create_project"
+    ],
+    "providerIds": [
+      "codex",
+      "claudeAgent",
+      "cursor",
+      "grok",
+      "opencode",
+      "antigravity"
+    ],
+    "noSourceThread": true,
+    "projectCreated": true,
+    "threadCreated": true,
+    "threadDeleted": true
+  }
+]

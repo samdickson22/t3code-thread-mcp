@@ -1,16 +1,23 @@
 #!/usr/bin/env node
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { createServer } from "./server.js";
-try {
-  const server = createServer({
-    url: process.env.T3_URL,
-    token: process.env.T3_ACCESS_TOKEN,
-    sourceThreadId: process.env.T3_SOURCE_THREAD_ID,
-  });
-  await server.connect(new StdioServerTransport());
-} catch {
-  console.error(
-    "Could not start T3 thread MCP. Set T3_URL, T3_ACCESS_TOKEN and T3_SOURCE_THREAD_ID.",
+import { createGlobalServer } from "./global-server.js";
+import { loadConfig } from "./config.js";
+if (process.argv.includes("--help")) {
+  console.log(
+    `t3code-thread-mcp [--config PATH]\n\nGlobally installed MCP server for configured T3 computers. No parent thread required.\nSet T3_URL and T3_ACCESS_TOKEN for one computer, or use --config PATH / T3_MCP_CONFIG.\nDefault config: ~/.config/t3code-thread-mcp/config.json\nOptional T3_SOURCE_THREAD_ID enables legacy project-scoped mode.\nTransport: stdio.`,
   );
-  process.exitCode = 1;
+} else {
+  try {
+    const config = loadConfig();
+    const server = config.environments
+      ? createGlobalServer(config)
+      : createServer(config);
+    await server.connect(new StdioServerTransport());
+  } catch {
+    console.error(
+      "Could not start T3 thread MCP. Check configured URLs and access-token environment variables. Use --help. No parent thread is required.",
+    );
+    process.exitCode = 1;
+  }
 }

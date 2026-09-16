@@ -1,56 +1,100 @@
 # T3 Code thread MCP
 
-Create, read, message, wait for, interrupt, and settle persistent T3 Code threads from an MCP client. Works with the existing HTTP API in T3 Code **0.0.40**, without modifying T3. Threads remain visible in its desktop, web, and mobile clients.
+Manage persistent T3 threads across projects and computers from one globally installed MCP server. **No parent thread ID is required.** Each computer needs a running T3 server and an authorized connection. Threads remain visible in T3's desktop, web, and mobile clients.
 
-This server matches the native peer-thread tools proposed in the T3 Code PR. The tool names, input schemas, defaults, result fields, project scope, source attribution, and command retry IDs are the same. `src/tools.json` is generated from the native tools, and its sync check detects contract changes.
+## Install globally
 
-## Run
-
-Requires Node 22 or later and a running T3 Code server.
+Requires Node 22 or later. Tested with released T3 0.0.40 and 0.0.42.
 
 ```sh
-git clone https://github.com/samdickson22/t3code-thread-mcp.git
-cd t3code-thread-mcp
-npm ci
-node src/cli.js
+npm install -g https://github.com/samdickson22/t3code-thread-mcp/releases/download/v0.2.0/t3code-thread-mcp-0.2.0.tgz
+t3code-thread-mcp --help
 ```
 
-Set these environment variables in the process that launches the MCP server:
+This package is distributed through GitHub releases; it is not currently published to the npm registry. You can also clone this repository, run `npm ci`, and launch `node src/cli.js`.
 
-| Variable              | Meaning                                                                                                                                                                   |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `T3_URL`              | T3 server base URL. Use HTTPS for remote connections; loopback HTTP is supported.                                                                                         |
-| `T3_ACCESS_TOKEN`     | Existing T3 bearer access token with read/write scopes, obtained through its normal pairing/token exchange flow. Supply through your host's secret environment mechanism. |
-| `T3_SOURCE_THREAD_ID` | An existing, unarchived thread whose project scopes this server and whose identity is attached to outgoing messages.                                                      |
+## Connect computers
 
-Configure your MCP host to launch `node` with the absolute path to `src/cli.js` as its argument, passing those environment variables. The transport is stdio. Logs never go to stdout; no credentials are printed. When an access token expires, obtain a new one through T3 and restart this process with the new token.
+For one computer, supply `T3_URL` and `T3_ACCESS_TOKEN` to the MCP process through your host's environment or secret manager. Use HTTPS remotely; loopback HTTP is supported. Obtain the access token through T3's normal pairing/token-exchange flow. When it expires, refresh it and restart the MCP process.
 
-Each MCP instance has one source thread. Run separate instances with the corresponding source IDs when different agents need their own identities. This package does not automatically install itself into every provider session in an existing T3 installation. The native implementation handles that injection.
+For several computers, create `~/.config/t3code-thread-mcp/config.json`:
 
-An external coordinator can use an empty source thread as its project anchor. That anchor does not have to run the coordinator. Use `replyToSource: false` when the coordinator watches worker completion itself, so the worker is not instructed to wake the anchor.
+```json
+{
+  "environments": [
+    {
+      "id": "desktop",
+      "label": "My desktop",
+      "url": "http://127.0.0.1:3773",
+      "tokenEnv": "T3_DESKTOP_TOKEN"
+    },
+    {
+      "id": "server",
+      "label": "Remote server",
+      "url": "https://your-t3-server.example",
+      "tokenEnv": "T3_SERVER_TOKEN"
+    }
+  ]
+}
+```
 
-## Tools
+Use your actual server addresses and supply the named token variables to the MCP process. The file contains variable names, not secret values. Keep environment IDs consistent between agents that will reply to each other. This does not discover arbitrary computers or bypass T3 authentication. For T3 Connect, use a supported reachable server endpoint; a UI connection label is not an API URL.
 
-| Tool                     | Behavior                                                                                                                                                                                                     |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `create_thread`          | Creates an empty peer at the project root. Takes a title and optional model selection. Does not copy history or create a worktree.                                                                           |
-| `list_threads`           | Lists peers, including settled threads, with ID-based pagination. Excludes archived threads.                                                                                                                 |
-| `read_thread`            | Returns current state and paginated conversation messages. Omits attachments and tool output; caps each message at 8,000 characters and marks truncation.                                                    |
-| `send_message_to_thread` | Sends a visible user follow-up with source attribution. Starts or queues work and revives settled threads. Optional model selection changes the model; T3 may reject changing an existing thread's provider. |
-| `wait_threads`           | Waits for any of up to eight peers to finish or need attention. Defaults to 60 seconds. Return each thread's cursor on subsequent waits to suppress repeated notifications.                                  |
-| `set_thread_settled`     | Settles or reactivates a peer. Running/queued work and blocking requests prevent settlement.                                                                                                                 |
-| `interrupt_thread`       | Requests interruption while preserving the conversation.                                                                                                                                                     |
+Pass `--config /absolute/path/config.json` or set `T3_MCP_CONFIG` to use a different file. With multiple environments, calls select `environmentId`; an optional top-level `defaultEnvironment` supplies a default. A single configured environment is selected automatically. `T3_URL` takes precedence over the default file.
 
-All targets must belong to the source thread's project on the configured server. The native server uses domain events for waits; this compatibility server polls the existing HTTP shell endpoint every 500 ms. Neither treats commentary alone as completion. Cursors are opaque and can change after an upgrade.
+**Upgrading from 0.1.x:** remove `T3_SOURCE_THREAD_ID` from the MCP configuration to use global mode. An explicit source ID plus `T3_URL` retains legacy project scope, even when `T3_MCP_CONFIG` is inherited. An explicit `--config` selects the global configuration.
 
-Mutations accept an optional `commandId`. Persist it before dispatch and reuse it only for an identical operation and arguments. IDs are scoped to the source thread. T3's stored command receipts prevent duplicate execution after a retry or process restart. Creation derives the thread ID from that command ID, so a retry returns the same thread. A command receipt means accepted, not that an agent has finished. Use read/wait to inspect execution.
+## Register with your agents
 
-For example, create a peer and then send it work:
+Installing the executable and registering an MCP server are separate steps. Register once at user scope on each computer/provider home where agents should have these tools. Newly started T3 provider sessions can then load that registration. Existing sessions may need to restart.
+
+Codex user configuration (`~/.codex/config.toml`):
+
+```toml
+[mcp_servers.t3_threads]
+command = "/absolute/path/to/t3code-thread-mcp"
+args = ["--config", "/absolute/path/to/config.json"]
+env_vars = ["T3_DESKTOP_TOKEN", "T3_SERVER_TOKEN"]
+```
+
+Find the executable path with `command -v t3code-thread-mcp`. Codex must explicitly forward the token variable names with `env_vars`; values stay in the launch environment. For a single-server setup, omit `args` and forward `T3_URL` and `T3_ACCESS_TOKEN` instead.
+
+Claude Code user registration:
+
+```sh
+claude mcp add --scope user t3_threads -- /absolute/path/to/t3code-thread-mcp --config /absolute/path/to/config.json
+```
+
+Supply the token variables in the environment that launches Claude/T3. If T3 uses a custom Codex or Claude home, register there. Alternatively, configure the MCP through T3's provider launch arguments. The [live validation](GLOBAL-E2E.md) exercised both providers using per-environment launch settings.
+
+For other MCP hosts, launch the same executable with stdio transport, optional `--config` arguments, and the required environment variables. The MCP does not print credentials or write logs to stdout.
+
+## Global tools
+
+| Tools | Behavior |
+| --- | --- |
+| `list_environments` | Discover configured computer IDs. |
+| `list_projects`, `create_project` | Discover or create projects on a selected computer. Workspace paths belong to that computer. |
+| `list_providers` | Read the server's actual installed providers, authentication status, and model catalog. |
+| `create_thread` | Create a persistent thread in any project. Requires `projectId`, title, and model selection. Defaults to approval-required permissions; no parent is needed. |
+| `list_threads`, `list_archived_threads` | List threads across projects with optional project filtering and pagination. |
+| `read_thread` | Read active conversation history and pending requests. Message text is capped at 8,000 characters with truncation indicated. Restore archived threads before reading their history. |
+| `send_message_to_thread` | Send or queue work and revive settled threads. Optional `source: { environmentId, threadId }` adds a sender reference and reply routing after checking that the source thread exists. Without it, the message has no invented sender. |
+| `wait_threads` | Wait for up to eight threads across environments, using cursors to suppress repeated results. Unobserved/unavailable targets are reported separately. A zero wait allows one bounded network observation. |
+| `interrupt_thread`, `stop_thread_session` | Interrupt work or stop its provider session while retaining conversation history. |
+| `set_thread_settled` | Settle or reactivate threads. T3 rejects settlement while work or blocking requests remain. |
+| `set_thread_title`, `set_thread_pinned`, `set_thread_snoozed` | Rename, pin/unpin, or snooze/unsnooze. Use `snoozedUntil: null` to clear a snooze. |
+| `set_thread_archived`, `delete_thread` | Archive/restore or permanently delete a thread. |
+| `respond_to_approval`, `respond_to_user_input`, `dismiss_user_input` | Manage explicit pending requests by request ID. |
+
+Start with `list_environments`, then `list_projects` and `list_providers`. For example:
 
 ```json
 {
   "name": "create_thread",
   "arguments": {
+    "environmentId": "server",
+    "projectId": "project-id-from-list-projects",
     "title": "Investigate issue 123",
     "commandId": "issue-123-create",
     "modelSelection": {
@@ -62,22 +106,23 @@ For example, create a peer and then send it work:
 }
 ```
 
-Pass the returned `threadId` to `send_message_to_thread`. A Claude peer can use `{"instanceId":"claudeAgent","model":"claude-fable-5.1","options":[{"id":"effort","value":"low"}]}`. Provider instances and model access must already be configured in T3. In T3 0.0.40, an existing thread bound to Codex rejects a switch to the Claude driver. Create a peer on the other provider and exchange context through messages instead. The tools report the execution error and preserve existing history.
+Send work using the returned thread ID and the same environment ID. Select a Claude model from that environment's provider catalog; the current Fable 5.1 canonical slug is `claude-fable-5-1` with instance `claudeAgent` and option `{ "id": "effort", "value": "low" }`.
+
+Mutations accept an optional `commandId`. Persist it before dispatch and reuse it only for the identical operation and arguments. T3 stores receipts, including rejected commands. A receipt means accepted, not completed; use read/wait to inspect execution. Global retry identities include routing, operation, project/target, and optional source. Keep these stable across retries.
+
+## Legacy compatibility and parity limits
+
+Setting `T3_SOURCE_THREAD_ID` retains the original seven project-scoped tools, schemas, defaults, sender attribution, and retry behavior. Agentdoc's existing scoped configuration continues to work. `src/tools.json` remains generated from the [native T3 peer-tools PR](https://github.com/pingdotgg/t3code/pull/11303); global mode adds routing and management tools beyond that PR's scoped contract.
+
+This release does **not** claim full Codex app feature parity. T3's public API does not expose equivalent conversation forks or host-to-host session handoff. It also withholds archived message history until the thread is restored. The MCP reports that limitation instead of returning false empty history or silently unarchiving it. Creating a new thread does not copy history, clone a provider session, or create a worktree. Changing an existing thread's provider driver may be rejected by T3; threads owned by different providers can communicate across environments.
+
+The HTTP and WebSocket routes are existing T3 application APIs, not a guaranteed stable third-party protocol. This integration is independent of Agentdoc or any task board.
 
 ## Validation
 
 ```sh
 npm test
 npm run check
-T3_NATIVE_CHECKOUT=/path/to/native-t3-branch node scripts/sync-native-contract.mjs --check
 ```
 
-The stdio tests exercise a real MCP client, HTTP transport, scope checks, retries, null validation, history limits, and attention cursors. Native tests use the real SQLite orchestration engine and MCP consumer boundary, including restart and command receipt replay.
-
-Live validation used unmodified T3 0.0.40, GPT-6 Astra with low reasoning, and Claude Fable 5.1. Separate source clients exchanged messages across both providers and settled/revived both threads with remembered history. The native branch was tested with the agents themselves calling peer tools, including Claude replying to Codex. Computer-use checks opened the persistent conversations through a real remote browser.
-
-## Scope
-
-This is a generic T3 integration, independent of any task board. A coordinator such as Agentdoc Teams can store returned thread references in its own documents and use these tools to delegate and resume work. Coordination policy and delivery back to that control agent belong to the coordinator.
-
-The T3 HTTP routes are current application APIs, not a promised stable third-party protocol. This package is pinned by its compatibility tests to the version above. It does not promise exactly-once completion callbacks, import arbitrary transcripts, answer approvals, archive/delete threads, or move work between environments.
+Tests cover the real MCP stdio boundary, global installation/configuration, cross-project and cross-environment routing, legacy scope, retry identities, attention states, and unavailable hosts. [Browser screenshots and real-provider evidence](GLOBAL-E2E.md) show Astra-low creating Fable-low on another environment, Fable replying through its own MCP tools, and settlement/archive/restoration/revival with retained context.

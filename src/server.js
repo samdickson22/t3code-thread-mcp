@@ -10,7 +10,7 @@ import {
 import Ajv from "ajv";
 import tools from "./tools.json" with { type: "json" };
 
-const summary = (t, attentionIds = []) => ({
+export const summary = (t, attentionIds = []) => ({
   id: t.id,
   projectId: t.projectId,
   title: t.title,
@@ -40,7 +40,7 @@ const summary = (t, attentionIds = []) => ({
     attentionIds,
   ]),
 });
-const ready = (t) =>
+export const ready = (t) =>
   t.hasPendingApprovals ||
   t.hasPendingUserInput ||
   (t.session?.status === "error" &&

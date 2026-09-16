@@ -1,0 +1,498 @@
+[
+  {
+    "name": "set_thread_title",
+    "args": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "title": "Global Fable — lifecycle verified"
+    },
+    "result": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "sequence": 42
+    }
+  },
+  {
+    "name": "set_thread_pinned",
+    "args": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "pinned": true
+    },
+    "result": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "sequence": 44
+    }
+  },
+  {
+    "name": "set_thread_settled",
+    "args": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "settled": true
+    },
+    "result": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "sequence": 46
+    }
+  },
+  {
+    "name": "set_thread_archived",
+    "args": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "archived": true
+    },
+    "result": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "sequence": 47
+    }
+  },
+  {
+    "name": "list_archived_threads",
+    "args": {
+      "environmentId": "b"
+    },
+    "result": {
+      "environmentId": "b",
+      "threads": [
+        {
+          "id": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+          "projectId": "mcp-project:mcp-global:9ef4597a2c69e54c84b2493ae3e488ac007eedf49426449a119bbe3d85143724",
+          "title": "Global Fable — lifecycle verified",
+          "modelSelection": {
+            "instanceId": "claudeAgent",
+            "model": "claude-fable-5-1",
+            "options": [
+              {
+                "id": "effort",
+                "value": "low"
+              }
+            ]
+          },
+          "runtimeMode": "full-access",
+          "interactionMode": "default",
+          "createdAt": "2026-09-16T20:43:50.632Z",
+          "updatedAt": "2026-09-16T20:47:11.279Z",
+          "settledAt": "2026-09-16T20:47:11.260Z",
+          "settledOverride": "settled",
+          "session": {
+            "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+            "status": "stopped",
+            "providerName": "claudeAgent",
+            "providerInstanceId": "claudeAgent",
+            "runtimeMode": "full-access",
+            "activeTurnId": null,
+            "lastError": null,
+            "updatedAt": "2026-09-16T20:45:59.767Z"
+          },
+          "latestTurn": {
+            "turnId": "9db7a424-2339-4a46-8577-c3330ed49114",
+            "state": "completed",
+            "requestedAt": "2026-09-16T20:43:58.324Z",
+            "startedAt": "2026-09-16T20:43:58.324Z",
+            "completedAt": "2026-09-16T20:44:09.087Z",
+            "assistantMessageId": "assistant:36d45e9f-7897-45cd-ac2e-4b5a45da10cc"
+          },
+          "latestUserMessageAt": "2026-09-16T20:43:58.324Z",
+          "hasPendingApprovals": false,
+          "hasPendingUserInput": false,
+          "backgroundLiveness": null,
+          "cursor": "[\"9db7a424-2339-4a46-8577-c3330ed49114\",\"completed\",\"stopped\",false,false,\"2026-09-16T20:47:11.260Z\",null,[]]",
+          "environmentId": "b",
+          "archivedAt": "2026-09-16T20:47:11.279Z",
+          "pinnedAt": null,
+          "snoozedUntil": null
+        }
+      ],
+      "nextBeforeThreadId": null
+    }
+  },
+  {
+    "name": "read_thread",
+    "archivedUnsupported": {
+      "content": [
+        {
+          "type": "text",
+          "text": "T3 does not expose archived history. Unarchive the thread with set_thread_archived before reading it."
+        }
+      ],
+      "isError": true
+    }
+  },
+  {
+    "name": "set_thread_archived",
+    "args": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "archived": false
+    },
+    "result": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "sequence": 48
+    }
+  },
+  {
+    "name": "read_thread",
+    "args": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008"
+    },
+    "result": {
+      "environmentId": "b",
+      "thread": {
+        "id": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+        "projectId": "mcp-project:mcp-global:9ef4597a2c69e54c84b2493ae3e488ac007eedf49426449a119bbe3d85143724",
+        "title": "Global Fable — lifecycle verified",
+        "modelSelection": {
+          "instanceId": "claudeAgent",
+          "model": "claude-fable-5-1",
+          "options": [
+            {
+              "id": "effort",
+              "value": "low"
+            }
+          ]
+        },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "createdAt": "2026-09-16T20:43:50.632Z",
+        "updatedAt": "2026-09-16T20:47:11.375Z",
+        "settledAt": "2026-09-16T20:47:11.260Z",
+        "settledOverride": "settled",
+        "session": {
+          "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+          "status": "stopped",
+          "providerName": "claudeAgent",
+          "providerInstanceId": "claudeAgent",
+          "runtimeMode": "full-access",
+          "activeTurnId": null,
+          "lastError": null,
+          "updatedAt": "2026-09-16T20:45:59.767Z"
+        },
+        "latestTurn": {
+          "turnId": "9db7a424-2339-4a46-8577-c3330ed49114",
+          "state": "completed",
+          "requestedAt": "2026-09-16T20:43:58.324Z",
+          "startedAt": "2026-09-16T20:43:58.324Z",
+          "completedAt": "2026-09-16T20:44:09.087Z",
+          "assistantMessageId": "assistant:36d45e9f-7897-45cd-ac2e-4b5a45da10cc"
+        },
+        "latestUserMessageAt": "2026-09-16T20:43:58.324Z",
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "backgroundLiveness": null,
+        "cursor": "[\"9db7a424-2339-4a46-8577-c3330ed49114\",\"completed\",\"stopped\",false,false,\"2026-09-16T20:47:11.260Z\",null,[]]",
+        "environmentId": "b",
+        "archivedAt": null,
+        "pinnedAt": null
+      },
+      "snapshotSequence": 48,
+      "page": {
+        "beforeCursor": null,
+        "hasMore": false,
+        "snapshotSequence": 48,
+        "threadSequence": 40
+      },
+      "messages": [
+        {
+          "id": "mcp-message:f10952db-dd80-4583-a4d8-e2275091afc8",
+          "role": "user",
+          "text": "Message from T3 thread mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8 on environment a. Reply with send_message_to_thread using environmentId \"a\" and threadId \"mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8\".\n\nUse the t3-global MCP send_message_to_thread tool to send exactly REMOTE_FABLE cobalt-lake-631 to environment a thread mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8. Send once only, then reply here FABLE_SENT cobalt-lake-631. Do not change files.",
+          "truncated": false,
+          "createdAt": "2026-09-16T20:43:58.324Z"
+        },
+        {
+          "id": "assistant:8e5fa92e-9beb-4cc8-84cf-a94d5aba9abe",
+          "role": "assistant",
+          "text": "I'll load the send tool and send the message once.",
+          "truncated": false,
+          "createdAt": "2026-09-16T20:44:03.090Z"
+        },
+        {
+          "id": "assistant:36d45e9f-7897-45cd-ac2e-4b5a45da10cc",
+          "role": "assistant",
+          "text": "FABLE_SENT cobalt-lake-631",
+          "truncated": false,
+          "createdAt": "2026-09-16T20:44:09.047Z"
+        }
+      ],
+      "activities": [
+        {
+          "id": "71e2d551-1f49-43b3-8ca3-3baa018108b2",
+          "kind": "tool.started",
+          "createdAt": "2026-09-16T20:44:03.090Z"
+        },
+        {
+          "id": "0af0ebd4-a361-4d93-99c1-a30ca713c7d2",
+          "kind": "tool.completed",
+          "createdAt": "2026-09-16T20:44:04.076Z"
+        },
+        {
+          "id": "2a24cb77-905c-4440-8321-4f167e12ce62",
+          "kind": "tool.updated",
+          "createdAt": "2026-09-16T20:44:04.076Z"
+        },
+        {
+          "id": "02700557-7d55-4329-813c-9c38bd8b1baa",
+          "kind": "tool.started",
+          "createdAt": "2026-09-16T20:44:04.966Z"
+        },
+        {
+          "id": "f0e34a32-0582-44bf-92b7-15f713b652ce",
+          "kind": "tool.completed",
+          "createdAt": "2026-09-16T20:44:07.858Z"
+        },
+        {
+          "id": "03d595e8-e41c-4bbf-b99e-46a0cb35c03f",
+          "kind": "checkpoint.captured",
+          "createdAt": "2026-09-16T20:44:09.087Z"
+        },
+        {
+          "id": "6e7267bb-8ee6-4c71-8456-adda4327d6fd",
+          "kind": "context-window.updated",
+          "createdAt": "2026-09-16T20:44:09.087Z"
+        }
+      ]
+    }
+  },
+  {
+    "name": "send_message_to_thread",
+    "args": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "message": "Recall the exact cobalt marker you previously sent. Reply only the marker. Do not use tools or send any other thread a message.",
+      "commandId": "global-revive-1"
+    },
+    "result": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "sequence": 51
+    }
+  },
+  {
+    "name": "wait_threads",
+    "args": {
+      "targets": [
+        {
+          "environmentId": "b",
+          "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008"
+        }
+      ],
+      "timeoutSeconds": 60
+    },
+    "result": {
+      "threads": [
+        {
+          "id": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+          "projectId": "mcp-project:mcp-global:9ef4597a2c69e54c84b2493ae3e488ac007eedf49426449a119bbe3d85143724",
+          "title": "Global Fable — lifecycle verified",
+          "modelSelection": {
+            "instanceId": "claudeAgent",
+            "model": "claude-fable-5-1",
+            "options": [
+              {
+                "id": "effort",
+                "value": "low"
+              }
+            ]
+          },
+          "runtimeMode": "full-access",
+          "interactionMode": "default",
+          "createdAt": "2026-09-16T20:43:50.632Z",
+          "updatedAt": "2026-09-16T20:47:15.415Z",
+          "settledAt": null,
+          "settledOverride": null,
+          "session": {
+            "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+            "status": "ready",
+            "providerName": "claudeAgent",
+            "providerInstanceId": "claudeAgent",
+            "runtimeMode": "full-access",
+            "activeTurnId": null,
+            "lastError": null,
+            "updatedAt": "2026-09-16T20:47:15.415Z"
+          },
+          "latestTurn": {
+            "turnId": "7916f144-4c26-4038-a72f-b1bc8c74397b",
+            "state": "completed",
+            "requestedAt": "2026-09-16T20:47:11.413Z",
+            "startedAt": "2026-09-16T20:47:11.413Z",
+            "completedAt": "2026-09-16T20:47:15.415Z",
+            "assistantMessageId": "assistant:f013e16f-a3e0-4814-9f84-b9421891d1a8"
+          },
+          "latestUserMessageAt": "2026-09-16T20:47:11.413Z",
+          "hasPendingApprovals": false,
+          "hasPendingUserInput": false,
+          "backgroundLiveness": null,
+          "cursor": "[\"7916f144-4c26-4038-a72f-b1bc8c74397b\",\"completed\",\"ready\",false,false,null,null,[]]",
+          "environmentId": "b",
+          "archivedAt": null,
+          "pinnedAt": null,
+          "snoozedUntil": null
+        }
+      ],
+      "timedOut": false
+    }
+  },
+  {
+    "name": "read_thread",
+    "args": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008"
+    },
+    "result": {
+      "environmentId": "b",
+      "thread": {
+        "id": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+        "projectId": "mcp-project:mcp-global:9ef4597a2c69e54c84b2493ae3e488ac007eedf49426449a119bbe3d85143724",
+        "title": "Global Fable — lifecycle verified",
+        "modelSelection": {
+          "instanceId": "claudeAgent",
+          "model": "claude-fable-5-1",
+          "options": [
+            {
+              "id": "effort",
+              "value": "low"
+            }
+          ]
+        },
+        "runtimeMode": "full-access",
+        "interactionMode": "default",
+        "createdAt": "2026-09-16T20:43:50.632Z",
+        "updatedAt": "2026-09-16T20:47:15.415Z",
+        "settledAt": null,
+        "settledOverride": null,
+        "session": {
+          "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+          "status": "ready",
+          "providerName": "claudeAgent",
+          "providerInstanceId": "claudeAgent",
+          "runtimeMode": "full-access",
+          "activeTurnId": null,
+          "lastError": null,
+          "updatedAt": "2026-09-16T20:47:15.415Z"
+        },
+        "latestTurn": {
+          "turnId": "7916f144-4c26-4038-a72f-b1bc8c74397b",
+          "state": "completed",
+          "requestedAt": "2026-09-16T20:47:11.413Z",
+          "startedAt": "2026-09-16T20:47:11.413Z",
+          "completedAt": "2026-09-16T20:47:15.415Z",
+          "assistantMessageId": "assistant:f013e16f-a3e0-4814-9f84-b9421891d1a8"
+        },
+        "latestUserMessageAt": "2026-09-16T20:47:11.413Z",
+        "hasPendingApprovals": false,
+        "hasPendingUserInput": false,
+        "backgroundLiveness": null,
+        "cursor": "[\"7916f144-4c26-4038-a72f-b1bc8c74397b\",\"completed\",\"ready\",false,false,null,null,[]]",
+        "environmentId": "b",
+        "archivedAt": null,
+        "pinnedAt": null
+      },
+      "snapshotSequence": 63,
+      "page": {
+        "beforeCursor": null,
+        "hasMore": false,
+        "snapshotSequence": 63,
+        "threadSequence": 63
+      },
+      "messages": [
+        {
+          "id": "mcp-message:f10952db-dd80-4583-a4d8-e2275091afc8",
+          "role": "user",
+          "text": "Message from T3 thread mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8 on environment a. Reply with send_message_to_thread using environmentId \"a\" and threadId \"mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8\".\n\nUse the t3-global MCP send_message_to_thread tool to send exactly REMOTE_FABLE cobalt-lake-631 to environment a thread mcp-thread:mcp-global:dab07d8238399388890bbf7674a4910b9475b0399e810c129ed61fa4d53975e8. Send once only, then reply here FABLE_SENT cobalt-lake-631. Do not change files.",
+          "truncated": false,
+          "createdAt": "2026-09-16T20:43:58.324Z"
+        },
+        {
+          "id": "assistant:8e5fa92e-9beb-4cc8-84cf-a94d5aba9abe",
+          "role": "assistant",
+          "text": "I'll load the send tool and send the message once.",
+          "truncated": false,
+          "createdAt": "2026-09-16T20:44:03.090Z"
+        },
+        {
+          "id": "assistant:36d45e9f-7897-45cd-ac2e-4b5a45da10cc",
+          "role": "assistant",
+          "text": "FABLE_SENT cobalt-lake-631",
+          "truncated": false,
+          "createdAt": "2026-09-16T20:44:09.047Z"
+        },
+        {
+          "id": "mcp-message:mcp-global:9ddf54c1d5bc1a3dab36521705c5393f5db2f3886750e12860c0f6399ed41d45",
+          "role": "user",
+          "text": "Recall the exact cobalt marker you previously sent. Reply only the marker. Do not use tools or send any other thread a message.",
+          "truncated": false,
+          "createdAt": "2026-09-16T20:47:11.413Z"
+        },
+        {
+          "id": "assistant:f013e16f-a3e0-4814-9f84-b9421891d1a8",
+          "role": "assistant",
+          "text": "REMOTE_FABLE cobalt-lake-631",
+          "truncated": false,
+          "createdAt": "2026-09-16T20:47:15.376Z"
+        }
+      ],
+      "activities": [
+        {
+          "id": "71e2d551-1f49-43b3-8ca3-3baa018108b2",
+          "kind": "tool.started",
+          "createdAt": "2026-09-16T20:44:03.090Z"
+        },
+        {
+          "id": "0af0ebd4-a361-4d93-99c1-a30ca713c7d2",
+          "kind": "tool.completed",
+          "createdAt": "2026-09-16T20:44:04.076Z"
+        },
+        {
+          "id": "2a24cb77-905c-4440-8321-4f167e12ce62",
+          "kind": "tool.updated",
+          "createdAt": "2026-09-16T20:44:04.076Z"
+        },
+        {
+          "id": "02700557-7d55-4329-813c-9c38bd8b1baa",
+          "kind": "tool.started",
+          "createdAt": "2026-09-16T20:44:04.966Z"
+        },
+        {
+          "id": "f0e34a32-0582-44bf-92b7-15f713b652ce",
+          "kind": "tool.completed",
+          "createdAt": "2026-09-16T20:44:07.858Z"
+        },
+        {
+          "id": "03d595e8-e41c-4bbf-b99e-46a0cb35c03f",
+          "kind": "checkpoint.captured",
+          "createdAt": "2026-09-16T20:44:09.087Z"
+        },
+        {
+          "id": "6e7267bb-8ee6-4c71-8456-adda4327d6fd",
+          "kind": "context-window.updated",
+          "createdAt": "2026-09-16T20:44:09.087Z"
+        },
+        {
+          "id": "c05d41ba-e1c4-444f-a154-45e95643ff7d",
+          "kind": "context-window.updated",
+          "createdAt": "2026-09-16T20:47:15.415Z"
+        }
+      ]
+    }
+  },
+  {
+    "name": "set_thread_pinned",
+    "args": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "pinned": false
+    },
+    "result": {
+      "environmentId": "b",
+      "threadId": "mcp-thread:c7004918-80f3-408e-aaf7-2da9d776e008",
+      "sequence": 64
+    }
+  }
+]
